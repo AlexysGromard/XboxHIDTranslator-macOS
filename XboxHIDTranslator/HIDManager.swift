@@ -12,6 +12,8 @@ import Combine
 /// Publishes incoming HID events as log lines to be used in SwiftUI views.
 class HIDManager: ObservableObject {
     @Published var logLines = [String]() // Stores recent HID input events for UI display/
+    @Published var isTranslationActive: Bool = false // Global state for translation activation
+    @Published var isDebugVisible: Bool = false // Global state for debug display
 
     private var manager: IOHIDManager!
 
@@ -58,5 +60,15 @@ class HIDManager: ObservableObject {
         if result != kIOReturnSuccess {
             print("Failed to open HID Manager: \(result)")
         }
+    }
+        
+    /// Toggle translation state
+    func toggleTranslation() {
+        isTranslationActive.toggle()
+    }
+    
+    /// Toggle debug visibility
+    func toggleDebug() {
+        isDebugVisible.toggle()
     }
 }
